@@ -2,23 +2,29 @@ const btn = document.querySelector('#btn')
 const backEnd = 'http://localhost:3000'
 
 btn.addEventListener('click', async () => {
-   let url = document.querySelector('#url').value
-   let scrVideo = `https://www.youtube.com/embed/${url.split('=')[1]}`
-   if (!url) {
-      alert('please enter a url')
-      return
+   try{
+      let url = document.querySelector('#url').value
+      let scrVideo = `https://www.youtube.com/embed/${url.split('=')[1]}`
+      if (!url) {
+         alert('please enter a url')
+         return
+      }
+      let youtubePlaceholder = document.querySelector('#youtubePlaceholder')
+      youtubePlaceholder.innerHTML = `<iframe width="420" height="315" id="video" src="${scrVideo}"></iframe>`
+      let URL
+      if (document.querySelector('#format').selectedIndex === 0) {
+         URL = `${backEnd}/api/Youtube/quality?url=${url}&format=audio`
+      } else if (document.querySelector('#format').selectedIndex === 1) {
+         URL = `${backEnd}/api/Youtube/quality?url=${url}&format=video`
+      }
+      let res = await fetch(URL)
+      data = await res.json()
+      updateQualityUi(data.quality)
+      
+   }catch{
+      alert("can't fitch")
    }
-   let youtubePlaceholder = document.querySelector('#youtubePlaceholder')
-   youtubePlaceholder.innerHTML = `<iframe width="420" height="315" id="video" src="${scrVideo}"></iframe>`
-   let URL
-   if (document.querySelector('#format').selectedIndex === 0) {
-      URL = `${backEnd}/api/Youtube/quality?url=${url}&format=audio`
-   } else if (document.querySelector('#format').selectedIndex === 1) {
-      URL = `${backEnd}/api/Youtube/quality?url=${url}&format=video`
-   }
-   let res = await fetch(URL)
-   data = await res.json()
-   updateQualityUi(data.quality)
+   
 })
 
 const updateQualityUi = (data) => {
@@ -39,6 +45,7 @@ document.addEventListener('click', async (e) => {
       } else if (document.querySelector('#format').selectedIndex === 1) {
          URL = `${backEnd}/api/Youtube/mp4?url=${url}&quality=${quality}`
       }
+      console.log(`${url} \n ${quality} \n ${URL}`);
       let res = await fetch(URL)
       if (res.ok) {
          window.open(URL)
