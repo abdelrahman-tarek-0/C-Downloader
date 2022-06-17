@@ -25,6 +25,7 @@ app.use(helmet())
 app.use(express.json())
 app.use(cors())
 
+
 app.use('/api', routes)
 app.get('/', (req, res) => {
    res.json({message:'welcome back :)'})
