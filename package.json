@@ -1,0 +1,24 @@
+{
+  "name": "li-su-project",
+  "version": "1.0.0",
+  "description": "complete log-in & sign-up project both back-end and front-end",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start:api": "node api/src/index.js",
+    "dev:api": "nodemon api/src/index.js",
+    "eslint": "eslint --ext .js,.jsx **/*.js  --fix",
+    "prettier": "prettier --write **/*.{js,css,html}",
+    "format": "npm run prettier && npm run eslint"
+  },
+  "author": "https://github.com/abdelrahman-tarek-0",
+  "license": "ISC",
+  "devDependencies": {
+    "eslint": "^8.17.0",
+    "eslint-config-google": "^0.14.0",
+    "eslint-config-prettier": "^8.5.0",
+    "eslint-plugin-prettier": "^4.0.0",
+    "nodemon": "^2.0.16",
+    "prettier": "^2.7.0"
+  }
+}
