@@ -4,10 +4,10 @@ const quality = async (req, res, next) => {
    try {
       const url = req.query.url
       const audioOrVideo = req.query.format
-      let quality = []
+      const quality = []
       if (ytdl.validateURL(url)) {
          if (audioOrVideo === 'video') {
-            let info = await ytdl.getInfo(url)
+            const info = await ytdl.getInfo(url)
 
             for (let i = 0; i < info.formats.length; i++) {
                if (
@@ -23,7 +23,7 @@ const quality = async (req, res, next) => {
             }
             res.json({ quality: quality })
          } else if (audioOrVideo === 'audio') {
-            let info = await ytdl.getInfo(url)
+            const info = await ytdl.getInfo(url)
             for (let i = 0; i < info.formats.length; i++) {
                if (!info.formats[i].hasVideo && info.formats[i].hasAudio) {
                   quality.push({
