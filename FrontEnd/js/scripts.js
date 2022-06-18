@@ -45,7 +45,6 @@ const updateQualityUi = (data) => {
       botnsContainer.innerHTML += `<button class="${data[i].itag} botns">${data[i].quality}</button>`
    }
 }
-// after click on any new botns , it will download the video
 
 botnsContainer.addEventListener('click', async (e) => {
    if (e.target.classList.contains('botns')) {
