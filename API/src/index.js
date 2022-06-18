@@ -39,7 +39,7 @@ app.use((_req, res) => {
 })
 
 app.listen(PORT, () => {
-   console.log('server is running\non localhost:${PORT}')
+   console.log(`server is running\non localhost:${PORT}`)
 })
 
 module.exports = app

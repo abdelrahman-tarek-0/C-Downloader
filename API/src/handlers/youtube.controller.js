@@ -47,18 +47,30 @@ const mp4 = async (req, res, next) => {
       if (ytdl.validateURL(url)) {
          ytdl(url, {
             quality: quality,
+         }).on("error", (err) => {
+            console.log(err);
          })
             .on('info', (info) => {
-               res.header(
-                  'Content-Disposition',
-                  `attachment; filename="${info.videoDetails.title}.mp4"`
-               )
+               try{
+                  res.header(
+                     'Content-Disposition',
+                     `attachment; filename="${info.videoDetails.title}.mp4"`
+                  )
+               }catch(error){
+                  if (error.message === 'Invalid character in header content ["Content-Disposition"]') {
+                     res.header(
+                        'Content-Disposition',
+                        `attachment; filename="video.mp4"`
+                     )
+                  }
+               }
             })
             .pipe(res)
       } else {
          throw new Error('invalid url')
       }
    } catch (error) {
+      console.log(error);
       next(error)
    }
 }
@@ -71,16 +83,26 @@ const mp3 = async (req, res, next) => {
             quality: quality,
          })
             .on('info', (info) => {
-               res.header(
-                  'Content-Disposition',
-                  `attachment; filename="${info.videoDetails.title}.mp4"`
-               )
+               try{
+                  res.header(
+                     'Content-Disposition',
+                     `attachment; filename="${info.videoDetails.title}.mp4"`
+                  )
+               }catch(error){
+                  if (error.message === 'Invalid character in header content ["Content-Disposition"]') {
+                     res.header(
+                        'Content-Disposition',
+                        `attachment; filename="audio.mp3"`
+                     )
+                  }
+               }
             })
             .pipe(res)
       } else {
          throw new Error('invalid url')
       }
    } catch (error) {
+      console.log(error);
       next(error)
    }
 }
