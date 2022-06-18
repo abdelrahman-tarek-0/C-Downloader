@@ -4,6 +4,5 @@ const errorMiddleware = (err, req, res, next) => {
    res.status(errStatus).json({
       message: errMessage,
    })
-   next()
 }
 module.exports = errorMiddleware

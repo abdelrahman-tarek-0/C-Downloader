@@ -3,31 +3,48 @@ const backEnd = 'http://localhost:3000'
 
 btn.addEventListener('click', async () => {
    try {
+
       const url = document.querySelector('#url').value
       const scrVideo = `https://www.youtube.com/embed/${url.split('=')[1]}`
-      if (!url) {
-         alert('please enter a url')
-         return
-      }
       const youtubePlaceholder = document.querySelector('#youtubePlaceholder')
       youtubePlaceholder.innerHTML = `<iframe width="420" height="315" id="video" src="${scrVideo}"></iframe>`
-      let URL
+      if(!url){ alert('please enter a url');return;}
+
+
+      let URL = ''
       if (document.querySelector('#format').selectedIndex === 0) {
          URL = `${backEnd}/api/Youtube/quality?url=${url}&format=audio`
       } else if (document.querySelector('#format').selectedIndex === 1) {
          URL = `${backEnd}/api/Youtube/quality?url=${url}&format=video`
       }
       const res = await fetch(URL)
-      data = await res.json()
-      updateQualityUi(data.quality)
-   } catch {
-      alert('can not fitch')
+      if (res.ok) {
+         console.log(`res ok`);
+         const data = await res.json()
+         updateQualityUi(data.quality)
+         console.log(`updated quality ui`);
+      }else{
+         const error = await res.json()
+         alert('error: ' + error.message + '\nstatus: ' + res.status)
+         console.log(`error`);
+      }
+   } catch (error) {
+      if (error.message === 'Failed to fetch') {
+         alert('server is down :(\n please try again later')
+         
+      }else{
+         console.log(error);
+      }
+      
    }
 })
 
 const updateQualityUi = (data) => {
+   console.log(`log data\n`,data);
+   
    const quality = document.querySelector('#quality')
    quality.innerHTML = ''
+   console.log(data.length);
    for (let i = 0; i < data.length; i++) {
       quality.innerHTML += `<button class="${data[i].itag} botns">${data[i].quality}</button>`
    }

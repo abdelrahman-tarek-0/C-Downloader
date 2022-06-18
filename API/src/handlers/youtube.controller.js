@@ -34,6 +34,8 @@ const quality = async (req, res, next) => {
             }
             res.json({ quality: quality })
          }
+      }else{
+         throw new Error('invalid url')
       }
    } catch (error) {
       next(error)
@@ -54,6 +56,8 @@ const mp4 = async (req, res, next) => {
                )
             })
             .pipe(res)
+      }else{
+         throw new Error('invalid url')
       }
    } catch (error) {
       next(error)
@@ -75,6 +79,8 @@ const mp3 = async (req, res, next) => {
                )
             })
             .pipe(res)
+      }else{
+         throw new Error('invalid url')
       }
    } catch (error) {
       next(error)
