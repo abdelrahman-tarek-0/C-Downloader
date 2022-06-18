@@ -66,19 +66,20 @@ botnsContainer.addEventListener('click', async (e) => {
 
 const videoOrAudioURL = (quality,route)=>{
    let YoutubeBackEndURL = ''
+   let videoOrAudio = document.querySelector('#format').selectedIndex
    if (route === 'qualityRoute') {
-      if (document.querySelector('#format').selectedIndex === 0) {
+      if (videoOrAudio === 0) {
          YoutubeBackEndURL = `${backEnd}/api/Youtube/quality?url=${url}&format=audio`
          return YoutubeBackEndURL
-      } else if (document.querySelector('#format').selectedIndex === 1) {
+      } else if (videoOrAudio === 1) {
          YoutubeBackEndURL = `${backEnd}/api/Youtube/quality?url=${url}&format=video`
          return YoutubeBackEndURL
       }
    }else if(route === 'downloadRoute'){
-      if (document.querySelector('#format').selectedIndex === 0) {
+      if (videoOrAudio === 0) {
          YoutubeBackEndURL = `${backEnd}/api/Youtube/mp3?url=${url}&quality=${quality}`
          return YoutubeBackEndURL
-      } else if (document.querySelector('#format').selectedIndex === 1) {
+      } else if (videoOrAudio === 1) {
          YoutubeBackEndURL = `${backEnd}/api/Youtube/mp3?url=${url}&quality=${quality}`
          return YoutubeBackEndURL
       }
