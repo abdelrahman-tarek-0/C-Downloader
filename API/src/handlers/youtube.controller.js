@@ -35,8 +35,8 @@ const quality = async (req, res, next) => {
             res.json({ quality: quality })
          }
       }
-   } catch {
-      next(Error)
+   } catch (error) {
+      next(error)
    }
 }
 const mp4 = async (req, res, next) => {
@@ -55,8 +55,8 @@ const mp4 = async (req, res, next) => {
             })
             .pipe(res)
       }
-   } catch {
-      next(Error)
+   } catch (error) {
+      next(error)
    }
 }
 const mp3 = async (req, res, next) => {
@@ -76,8 +76,8 @@ const mp3 = async (req, res, next) => {
             })
             .pipe(res)
       }
-   } catch {
-      next(Error)
+   } catch (error) {
+      next(error)
    }
 }
 
