@@ -4,6 +4,27 @@ const youtubePlaceholder = document.querySelector('#youtubePlaceholder')
 const botnsContainer = document.querySelector('#quality')
 let url = ''
 
+/*
+html structure
+
+-body
+
+   -input-text
+      url
+
+   -btn
+
+   -format
+      audio
+      video
+
+   -youtubePlaceholder
+      iframe-youtube (if loaded)
+
+   -quality
+      loader
+      botns (if loaded)
+*/
 
 searchBtn.addEventListener('click', async () => {
    // rest of the code
