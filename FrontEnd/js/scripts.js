@@ -56,8 +56,10 @@ searchBtn.addEventListener('click', async () => {
    } catch (error) {
       if (error.message === 'Failed to fetch') {
          alert('server is down :(\n please try again later')
+         loader.style.display = 'none'
       } else {
          alert('error: ' + error.message)
+         loader.style.display = 'none'
       }
    }
 })
