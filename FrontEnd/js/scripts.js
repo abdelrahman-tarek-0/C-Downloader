@@ -8,23 +8,27 @@ let url = ''
 searchBtn.addEventListener('click', async () => {
    // rest of the code
    youtubePlaceholder.innerHTML = ''
-   botnsContainer.innerHTML = ''
+   botnsContainer.innerHTML = '<div id="loader"></div>'
    document.querySelector('#url').focus()
 
    try {
       url = document.querySelector('#url').value
       if (!url) {alert('please enter a url');return}
 
+      const loader = document.querySelector('#loader')
+      loader.style.display = 'block'
+
       let BackEndURL = videoOrAudioURL(quality,'qualityRoute')
       const res = await fetch(BackEndURL)
 
       if (res.ok) {
          const data = await res.json()
+         loader.style.display = 'none'
          updateQualityUi(data.quality)
       } else {
          const error = await res.json()
          alert('error: ' + error.message + '\nstatus: ' + res.status)
-         preLoader.style.display = 'none'
+         loader.style.display = 'none'
       }
      
 
@@ -40,7 +44,7 @@ searchBtn.addEventListener('click', async () => {
 const updateQualityUi = (data) => {
    const scrVideo = `https://www.youtube.com/embed/${url.split('=')[1]}`
    youtubePlaceholder.innerHTML = `<iframe width="420" height="315" id="video" src="${scrVideo}"></iframe>`
-   botnsContainer.innerHTML = ''
+   botnsContainer.innerHTML = '<div id="loader"></div>'
    for (let i = 0; i < data.length; i++) {
       botnsContainer.innerHTML += `<button class="${data[i].itag} botns">${data[i].quality}</button>`
    }
