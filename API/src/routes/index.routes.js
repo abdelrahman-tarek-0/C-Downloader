@@ -7,5 +7,6 @@ routes.get('/', (req, res) => {
 })
 
 routes.use('/Youtube', youtubeRoutes)
+routes.use('/Facebook', facebookRoutes)
 
 module.exports = routes
