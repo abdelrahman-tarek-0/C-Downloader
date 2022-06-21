@@ -34,12 +34,15 @@ searchBtn.addEventListener('click', async () => {
 
    try {
       url = document.querySelector('#url').value
-      if (!url) {alert('please enter a url');return}
+      if (!url) {
+         alert('please enter a url')
+         return
+      }
 
       const loader = document.querySelector('#loader')
       loader.style.display = 'block'
 
-      let BackEndURL = videoOrAudioURL(quality,'qualityRoute')
+      const BackEndURL = videoOrAudioURL(quality, 'qualityRoute')
       const res = await fetch(BackEndURL)
 
       if (res.ok) {
@@ -51,8 +54,6 @@ searchBtn.addEventListener('click', async () => {
          alert('error: ' + error.message + '\nstatus: ' + res.status)
          loader.style.display = 'none'
       }
-     
-
    } catch (error) {
       if (error.message === 'Failed to fetch') {
          alert('server is down :(\n please try again later')
@@ -75,24 +76,24 @@ const updateQualityUi = (data) => {
 
 botnsContainer.addEventListener('click', async (e) => {
    if (e.target.classList.contains('botns')) {
-      try{
+      try {
          const quality = e.target.classList[0]
-         const BackEndURL = videoOrAudioURL(quality,'downloadRoute')
+         const BackEndURL = videoOrAudioURL(quality, 'downloadRoute')
          const res = await fetch(BackEndURL)
          if (res.ok) {
             window.open(BackEndURL)
          } else {
             alert('something went wrong')
          }
-      }catch(error){
+      } catch (error) {
          alert(`error: ${error.message}`)
       }
    }
 })
 
-const videoOrAudioURL = (quality,route)=>{
+const videoOrAudioURL = (quality, route) => {
    let YoutubeBackEndURL = ''
-   let videoOrAudio = document.querySelector('#format').selectedIndex
+   const videoOrAudio = document.querySelector('#format').selectedIndex
    if (route === 'qualityRoute') {
       if (videoOrAudio === 0) {
          YoutubeBackEndURL = `${backEnd}/api/Youtube/quality?url=${url}&format=audio`
@@ -101,7 +102,7 @@ const videoOrAudioURL = (quality,route)=>{
          YoutubeBackEndURL = `${backEnd}/api/Youtube/quality?url=${url}&format=video`
          return YoutubeBackEndURL
       }
-   }else if(route === 'downloadRoute'){
+   } else if (route === 'downloadRoute') {
       if (videoOrAudio === 0) {
          YoutubeBackEndURL = `${backEnd}/api/Youtube/mp3?url=${url}&quality=${quality}`
          return YoutubeBackEndURL

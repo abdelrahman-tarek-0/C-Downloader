@@ -1,4 +1,4 @@
-*{
+* {
    margin: 0;
    padding: 0;
    box-sizing: border-box;
@@ -12,8 +12,8 @@ body {
    transform: translate(-50%, -50%);
 }
 
-#loader{
-   background-image: url("../assets/img/load.gif");
+#loader {
+   background-image: url('../assets/img/load.gif');
    background-position: center center;
    background-attachment: fixed;
    background-repeat: no-repeat;
@@ -25,4 +25,4 @@ body {
    position: absolute;
    z-index: 100;
    display: none;
- }
+}

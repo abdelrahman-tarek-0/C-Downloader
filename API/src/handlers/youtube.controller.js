@@ -47,20 +47,24 @@ const mp4 = async (req, res, next) => {
       if (ytdl.validateURL(url)) {
          ytdl(url, {
             quality: quality,
-         }).on("error", (err) => {
-            console.log(err);
          })
+            .on('error', (err) => {
+               console.log(err)
+            })
             .on('info', (info) => {
-               try{
+               try {
                   res.header(
                      'Content-Disposition',
                      `attachment; filename="${info.videoDetails.title}.mp4"`
                   )
-               }catch(error){
-                  if (error.message === 'Invalid character in header content ["Content-Disposition"]') {
+               } catch (error) {
+                  if (
+                     error.message ===
+                     'Invalid character in header content ["Content-Disposition"]'
+                  ) {
                      res.header(
                         'Content-Disposition',
-                        `attachment; filename="video.mp4"`
+                        'attachment; filename="video.mp4"'
                      )
                   }
                }
@@ -70,7 +74,7 @@ const mp4 = async (req, res, next) => {
          throw new Error('invalid url')
       }
    } catch (error) {
-      console.log(error);
+      console.log(error)
       next(error)
    }
 }
@@ -83,16 +87,19 @@ const mp3 = async (req, res, next) => {
             quality: quality,
          })
             .on('info', (info) => {
-               try{
+               try {
                   res.header(
                      'Content-Disposition',
                      `attachment; filename="${info.videoDetails.title}.mp4"`
                   )
-               }catch(error){
-                  if (error.message === 'Invalid character in header content ["Content-Disposition"]') {
+               } catch (error) {
+                  if (
+                     error.message ===
+                     'Invalid character in header content ["Content-Disposition"]'
+                  ) {
                      res.header(
                         'Content-Disposition',
-                        `attachment; filename="audio.mp3"`
+                        'attachment; filename="audio.mp3"'
                      )
                   }
                }
@@ -102,7 +109,7 @@ const mp3 = async (req, res, next) => {
          throw new Error('invalid url')
       }
    } catch (error) {
-      console.log(error);
+      console.log(error)
       next(error)
    }
 }
