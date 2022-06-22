@@ -83,7 +83,24 @@ const videoGrabber = async (url,cookie = config.publicCookie) => {
           URLs.push({ quality: 'HD', url: videoUrl,audio: true,note:"High quality with audio"})
        }
     }
-   
+    for (let i = 0; i < quality.length; i++) {
+       if (script.includes(`FBQualityLabel=\\"${quality[i]}\\`)) {
+          let videoUrl = script
+             .split(`FBQualityLabel=\\"${quality[i]}\\">\\u003CBaseURL>`)[1]
+             .split('\\u003C')[0]
+             .replaceAll('"', '')
+             .replaceAll('&amp;', '&')
+             .replaceAll('\\u0025', '%')
+             .replaceAll('\\', '')
+          if (!(videoUrl == 'null')) {
+             URLs.push({
+                quality: `${quality[i]}`,
+                url: videoUrl,
+                audio: false,
+             })
+          }
+       }
+    }
     if (script.includes('"audio":[{"url":"')) {
        let audioUrl = script
           .split('"audio":[{"url":"')[1]
