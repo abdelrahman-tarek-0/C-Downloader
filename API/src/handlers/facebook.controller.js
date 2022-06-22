@@ -1,2 +1,1 @@
-
 module.exports = { high, low }
