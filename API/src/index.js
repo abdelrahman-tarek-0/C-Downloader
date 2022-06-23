@@ -15,7 +15,7 @@ app.use(morgan('dev'))
 app.use(
    expressRateLimit({
       windowMs: 30 * 1000,
-      max: 15,
+      max: 5,
       standardHeaders: true,
       legacyHeaders: false,
    })

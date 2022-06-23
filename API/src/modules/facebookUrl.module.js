@@ -2,13 +2,13 @@ const axios = require('axios')
 const config = require('../config')
 
 const jsdom = require('jsdom')
-// JSDoc
 const { JSDOM } = jsdom //
 
 // cookie required for private facebook groups and pages
 // i added a public cookie for acccessing public groups and pages
 
 const videoGrabber = async (url, cookie = config.publicCookie) => {
+   try {
    const URLs = []
    const res = await axios.request({
       url: url,
@@ -61,6 +61,7 @@ const videoGrabber = async (url, cookie = config.publicCookie) => {
    ]
 
    const script = getElementsByInner('playable_url":"')[0].innerHTML
+
    if (script.includes('playable_url":"')) {
       const videoUrl = script
          .split('playable_url":"')[1]
@@ -123,7 +124,11 @@ const videoGrabber = async (url, cookie = config.publicCookie) => {
          URLs.push({ quality: 'audio', url: audioUrl, audio: true })
       }
    }
-   console.log(URLs)
+   return URLs
+   }catch(error){
+      error.message = `The video may be private or the url is invalid -- if the video is private, you can add a cookie to the request header, currently the only cookie available is public Cookie for public groups and pages`
+      throw new Error(error)
+   }
 }
 
-module.exports = videoGrabber
+module.exports = {videoGrabber}
