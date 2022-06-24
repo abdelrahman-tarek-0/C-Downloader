@@ -79,10 +79,10 @@ const videoGrabber = async (url, cookie = config.publicCookie) => {
          })
       }
    }
-   if (script.includes('playable_url_quality_hd":')) {
+   if (script.includes('playable_url_quality_hd":"')) {
       const videoUrl = script
-         .split('playable_url_quality_hd":')[1]
-         .split(',"')[0]
+         .split('playable_url_quality_hd":"')[1]
+         .split('"')[0]
          .replaceAll('&amp;', '&')
          .replaceAll('\\u0025', '%')
          .replaceAll('\\', '')
